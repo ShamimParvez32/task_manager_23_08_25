@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:task_manager_23_08_25/data/services/network_caller.dart';
 import 'package:task_manager_23_08_25/data/utlis/urls.dart';
+import 'package:task_manager_23_08_25/ui/controllers/auth_controller.dart';
 import 'package:task_manager_23_08_25/ui/screens/reset_password_screen.dart';
 import 'package:task_manager_23_08_25/ui/screens/sign_in_screen.dart';
 import 'package:task_manager_23_08_25/ui/utlis/app_colors.dart';
@@ -13,10 +14,10 @@ import 'package:task_manager_23_08_25/ui/widgets/screen_background.dart';
 import 'package:task_manager_23_08_25/ui/widgets/show_snakebar_message.dart';
 
 class ForgotPasswordVerifyOtpScreen extends StatefulWidget {
-  const ForgotPasswordVerifyOtpScreen({super.key, required this.email,});
+  const ForgotPasswordVerifyOtpScreen({super.key,});
 
   static const String name = '/forgot-password/verify-otp';
-final String? email;
+
   @override
   State<ForgotPasswordVerifyOtpScreen> createState() =>
       _ForgotPasswordVerifyOtpScreenState();
@@ -145,10 +146,13 @@ class _ForgotPasswordVerifyOtpScreenState
     _forgotPasswordVerifyOtpScreenInProgress = false;
     setState(() {});
 
+    if(pinCode!=null){
+      AuthController.setPinCode=pinCode;
+    }
+
     if (response.isSuccess) {
       showSnakeBarMessage(context, 'Otp verification successful');
-      Navigator.pushNamed(context, ResetPasswordScreen.name,arguments: {'email': widget.email,
-        'otp': pinCode,});
+      Navigator.pushNamed(context, ResetPasswordScreen.name,);
     } else {
       showSnakeBarMessage(context, response.errorMessage);
     }

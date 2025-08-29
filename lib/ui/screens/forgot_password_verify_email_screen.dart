@@ -1,17 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager_23_08_25/data/models/recovery_model.dart';
 import 'package:task_manager_23_08_25/data/services/network_caller.dart';
 import 'package:task_manager_23_08_25/data/utlis/urls.dart';
+import 'package:task_manager_23_08_25/ui/controllers/auth_controller.dart';
 import 'package:task_manager_23_08_25/ui/screens/forgot_password_verify_otp_screen.dart';
 import 'package:task_manager_23_08_25/ui/utlis/app_colors.dart';
 import 'package:task_manager_23_08_25/ui/widgets/looder.dart';
 import 'package:task_manager_23_08_25/ui/widgets/screen_background.dart';
 import 'package:task_manager_23_08_25/ui/widgets/show_snakebar_message.dart';
 
+
 class ForgotPasswordVerifyEmailScreen extends StatefulWidget {
   const ForgotPasswordVerifyEmailScreen({super.key});
-
   static const String name = '/forgot-password/verify-email';
   @override
   State<ForgotPasswordVerifyEmailScreen> createState() => _ForgotPasswordVerifyEmailScreenState();
@@ -22,7 +22,8 @@ class _ForgotPasswordVerifyEmailScreenState extends State<ForgotPasswordVerifyEm
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _forgotPasswordVerifyEmailScreenInProgress = false;
 
-  List<RecoveryModel> recoveryDataList=[];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +123,7 @@ class _ForgotPasswordVerifyEmailScreenState extends State<ForgotPasswordVerifyEm
 
     if (response.isSuccess) {
       showSnakeBarMessage(context, 'Email verification successful');
+      AuthController.setEmail =email;
       Navigator.pushNamed(context, ForgotPasswordVerifyOtpScreen.name,);
     } else {
       showSnakeBarMessage(context, response.errorMessage);

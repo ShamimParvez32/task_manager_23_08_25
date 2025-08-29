@@ -60,11 +60,9 @@ class TaskManagerApp extends StatelessWidget {
         }else if(setting.name== ForgotPasswordVerifyEmailScreen.name){
           widget= const ForgotPasswordVerifyEmailScreen();
         }else if(setting.name== ForgotPasswordVerifyOtpScreen.name){
-          RecoveryModel recoveryModel= setting.arguments as RecoveryModel;
-          widget= ForgotPasswordVerifyOtpScreen(email: recoveryModel.email,);
+          widget= ForgotPasswordVerifyOtpScreen();
         }else if(setting.name== ResetPasswordScreen.name){
-          RecoveryModel recoveryModel= setting.arguments as RecoveryModel;
-          widget= ResetPasswordScreen(email: recoveryModel.email, otp: recoveryModel.otp,);
+          widget= ResetPasswordScreen();
         }else if(setting.name== MainBottomNavScreen.name) {
           widget = const MainBottomNavScreen();
         }else if(setting.name== UpdateProfileScreen.name) {
@@ -72,7 +70,6 @@ class TaskManagerApp extends StatelessWidget {
         }else if(setting.name== AddNewTaskScreen.name) {
           widget = const AddNewTaskScreen();
         }
-
         return MaterialPageRoute(builder: (ctx)=> widget);
       },
     );

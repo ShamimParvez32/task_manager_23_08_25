@@ -48,8 +48,40 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_23_08_25/data/models/user_model.dart';
 
 class AuthController{
+
+  static String? _pinCode;
+
+  static set setPinCode(String pin) {
+    _pinCode = pin;
+  }
+
+  static String get getPinCode {
+    return _pinCode ?? '';
+  }
+
+  static String? _email;
+
+  static set setEmail(String email) {
+    _email = email;
+  }
+
+  static String get getEmail {
+    return _email ?? '';
+  }
+
+
+
+
+
+
+
+
+
+
+
   static String? accessToken;
   static UserModel? userModel;
+
 
   static const String _accessTokenKey='access-token';
   static const String _userDataKey='user-data';

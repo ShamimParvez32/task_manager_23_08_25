@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager_23_08_25/data/services/network_caller.dart';
 import 'package:task_manager_23_08_25/data/utlis/urls.dart';
+import 'package:task_manager_23_08_25/ui/controllers/auth_controller.dart';
 import 'package:task_manager_23_08_25/ui/screens/sign_in_screen.dart';
 import 'package:task_manager_23_08_25/ui/utlis/app_colors.dart';
 import 'package:task_manager_23_08_25/ui/widgets/looder.dart';
@@ -11,11 +12,10 @@ import 'package:task_manager_23_08_25/ui/widgets/screen_background.dart';
 import 'package:task_manager_23_08_25/ui/widgets/show_snakebar_message.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key, required this.email, required this.otp,});
+  const ResetPasswordScreen({super.key,});
 
   static const String name = '/reset-password';
-  final String? email;
-  final String? otp;
+
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -134,8 +134,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     setState(() {});
 
     Map<String, dynamic> requestBody = {
-      "email": widget.email ?? "",
-      "OTP": widget.otp ?? "",
+      "email": AuthController.getEmail,
+      "OTP": AuthController.getPinCode,
       "password": _newPasswordTEController.text,
     };
     final NetworkResponse response = await NetworkCaller.postRequest(
