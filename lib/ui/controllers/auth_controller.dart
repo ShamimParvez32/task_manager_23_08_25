@@ -72,13 +72,6 @@ class AuthController{
 
 
 
-
-
-
-
-
-
-
   static String? accessToken;
   static UserModel? userModel;
 
