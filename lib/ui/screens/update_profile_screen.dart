@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:task_manager_23_08_25/data/models/user_model.dart';
 import 'package:task_manager_23_08_25/data/services/network_caller.dart';
 import 'package:task_manager_23_08_25/data/utlis/urls.dart';
 import 'package:task_manager_23_08_25/ui/controllers/auth_controller.dart';
@@ -9,7 +10,6 @@ import 'package:task_manager_23_08_25/ui/widgets/looder.dart';
 import 'package:task_manager_23_08_25/ui/widgets/screen_background.dart';
 import 'package:task_manager_23_08_25/ui/widgets/show_snakebar_message.dart';
 import 'package:task_manager_23_08_25/ui/widgets/tm_app_bar.dart';
-
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
@@ -190,9 +190,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     }
   }
 
-
-
-
   Future<void> _updateProfile() async {
     _updateProfileInProgress = true;
     setState(() {});
@@ -204,33 +201,42 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       "mobile": _mobileTEController.text.trim(),
     };
 
-    if(_pickedImage!=null){
-      List<int>imageBytes=await _pickedImage!.readAsBytes();
-      requestBody['photo']=base64Encode(imageBytes);
+    if (_pickedImage != null) {
+      List<int> imageBytes = await _pickedImage!.readAsBytes();
+      requestBody['photo'] = base64Encode(imageBytes);
     }
 
-    if(_passwordTEController.text.isNotEmpty){
-      requestBody['password']=_passwordTEController.text;
+    if (_passwordTEController.text.isNotEmpty) {
+      requestBody['password'] = _passwordTEController.text;
     }
-
 
     final NetworkResponse response = await NetworkCaller.postRequest(
       url: Urls.updateProfileUrl,
       body: requestBody,
     );
 
-
-
     _updateProfileInProgress = false;
     setState(() {});
+
     if (response.isSuccess) {
-      _passwordTEController.clear();
-      showSnakeBarMessage(context, 'Profile Updated');
+        AuthController.userModel?.email= _emailTEController.text.trim();
+        AuthController.userModel?.firstName= _firstNameTEController.text.trim();
+        AuthController.userModel?.lastName= _lastNameTEController.text.trim();
+
+        if (_pickedImage != null) {
+          List<int> imageBytes = await _pickedImage!.readAsBytes();
+          String base64Photo = base64Encode(imageBytes);
+          AuthController.userModel?.photo = base64Photo;
+        }
+
+        showSnakeBarMessage(context, "Profile updated successfully");
+        _passwordTEController.clear();
+        setState(() {});
+
     } else {
       showSnakeBarMessage(context, response.errorMessage);
     }
   }
-
 
   @override
   void dispose() {

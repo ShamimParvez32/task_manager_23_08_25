@@ -125,7 +125,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   void _onTabForgotPassBtn() {
     if (_formKey.currentState!.validate()) {
-      _resetPassword();
+      if(_newPasswordTEController.text == _confirmPasswordTEController.text) {
+        _resetPassword();
+      }
+      else{
+        showSnakeBarMessage(context, 'Password not match');
+      }
     }
   }
 
@@ -149,6 +154,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     if (response.isSuccess) {
       print(requestBody);
       showSnakeBarMessage(context, 'password reset successful');
+      Navigator.pushNamedAndRemoveUntil(context, SignInScreen.name,(_) => false);
+      _newPasswordTEController.clear();
+      _confirmPasswordTEController.clear();
     }
       else{
         showSnakeBarMessage(context, response.errorMessage);

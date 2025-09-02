@@ -125,6 +125,7 @@ class _ForgotPasswordVerifyEmailScreenState extends State<ForgotPasswordVerifyEm
       showSnakeBarMessage(context, 'Email verification successful');
       AuthController.setEmail =email;
       Navigator.pushNamed(context, ForgotPasswordVerifyOtpScreen.name,);
+      _emailTEController.clear();
     } else {
       showSnakeBarMessage(context, response.errorMessage);
     }

@@ -106,6 +106,13 @@ class AuthController{
     return false;
   }
 
+  /*static Future<void> updateUserData(UserModel model) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(_userDataKey, jsonEncode(model.toJson()));
+    userModel = model;
+  }*/
+
+
  static Future<void> clearUserData()async{
    SharedPreferences sharedPreferences =await SharedPreferences.getInstance();
     sharedPreferences.clear();

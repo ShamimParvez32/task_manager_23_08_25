@@ -132,27 +132,27 @@ class _ForgotPasswordVerifyOtpScreenState
 
   void _onTabForgotPassBtn() {
     if (_formKey.currentState!.validate()) {
-      _verifyOtp(_pinCodeTEController.text);
+      _verifyOtp(AuthController.getEmail, _pinCodeTEController.text);
     }
   }
 
-  Future<void> _verifyOtp(String pinCode) async {
+  Future<void> _verifyOtp(String email, String pinCode) async {
     _forgotPasswordVerifyOtpScreenInProgress = true;
     setState(() {});
     final NetworkResponse response = await NetworkCaller.getRequest(
-      url: Urls.recoveryOtpUrl(pinCode),
+      url: Urls.recoveryOtpUrl(email, pinCode),
     );
 
     _forgotPasswordVerifyOtpScreenInProgress = false;
     setState(() {});
 
-    if(pinCode!=null){
-      AuthController.setPinCode=pinCode;
-    }
+
 
     if (response.isSuccess) {
       showSnakeBarMessage(context, 'Otp verification successful');
+      AuthController.setPinCode=pinCode;
       Navigator.pushNamed(context, ResetPasswordScreen.name,);
+      _pinCodeTEController.clear();
     } else {
       showSnakeBarMessage(context, response.errorMessage);
     }

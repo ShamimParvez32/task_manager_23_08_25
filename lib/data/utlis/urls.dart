@@ -3,7 +3,7 @@ class Urls{
   static const String signInUrl='$_baseUrl/login';
   static const String signUpUrl='$_baseUrl/registration';
   static  String recoveryMailUrl(String email) => '$_baseUrl/RecoverVerifyEmail/$email';
-  static  String recoveryOtpUrl(String pinCode) => '$_baseUrl/RecoverVerifyOTP/$pinCode';
+  static  String recoveryOtpUrl(String email, String pinCode) => '$_baseUrl/RecoverVerifyOTP/$email/$pinCode';
   static const String resetPasswordUrl = '$_baseUrl/RecoverResetPass';
   static const String addNewTaskUrl = '$_baseUrl/createTask';
   static const String updateProfileUrl = '$_baseUrl/profileUpdate';
