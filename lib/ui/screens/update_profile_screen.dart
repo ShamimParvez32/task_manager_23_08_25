@@ -215,6 +215,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       body: requestBody,
     );
 
+    showSnakeBarMessage(context, 'updating....');
     _updateProfileInProgress = false;
     setState(() {});
 

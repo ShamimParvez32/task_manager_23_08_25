@@ -16,11 +16,13 @@ final bool fromUpdateProfile;
       backgroundColor: AppColors.themeColor,
       title: Row(
         children: [
-          CircleAvatar(
-            backgroundImage: MemoryImage(base64Decode(AuthController.userModel?.photo?? '')),
-            onBackgroundImageError: (_, __) => Icon(Icons.error_outline),
-            radius: 16,
-          ),
+              CircleAvatar(
+                radius: 16,
+                backgroundImage: (AuthController.userModel?.photo != null &&
+                    AuthController.userModel!.photo!.isNotEmpty)
+                    ? MemoryImage(base64Decode(AuthController.userModel!.photo!))
+                    : const AssetImage("assets/images/default_avatar.png") as ImageProvider,
+              ),
           SizedBox(width: 8,),
           Expanded(
             child: GestureDetector(
